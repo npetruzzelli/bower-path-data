@@ -1,7 +1,7 @@
 {
   "name": "bower-path-data",
   "version": "0.1.0",
-  "description": "",
+  "description": "Get information on bower related paths and directory names.",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
@@ -13,7 +13,13 @@
     "type": "git",
     "url": "git@github.com:npetruzzelli/bower-path-data.git"
   },
-  "keywords": [],
+  "keywords": [
+    "bower",
+    "bower.json",
+    ".bowerrc",
+    "paths",
+    "directories"
+  ],
   "author": "Nick Petruzzelli <code.npetruzzelli@gmail.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
