@@ -10,17 +10,15 @@ npm install bower-path-data
 
 ## Usage
 
-`path/to/app/.bowerrc`
-
-```json
+```javascript
+// C:\code\my-project\path\to\app\.bowerrc
 {
   "directory": "../../../.tmp/assets/bower_stuff"
 }
 ```
 
-`path/to/app/assets/bower.json`
-
 ```javascript
+// C:\code\my-project\path\to\app\assets\bower.json
 {
   // ...
   // JSON file contents don't matter, they are not checked. The existance of the
@@ -30,14 +28,15 @@ npm install bower-path-data
 ```
 
 ```javascript
+// C:\code\my-project\index.js
 const bowerPathData = require('bower-path-data');
 
 var pathInfo =  bowerPathData.sync('path/to/app/assets');
 // pathInfo => {
-//   componentsDir: '.tmp/assets/bower_stuff',
+//   componentsDir: 'C:\code\my-project\.tmp\assets\bower_stuff',
 //   componentsDirName: 'bower_stuff',
-//   jsonDir: 'path/to/app/assets',
-//   rcDir: 'path/to/app'
+//   jsonDir: 'C:\code\my-project\path\to\app\assets',
+//   rcDir: 'C:\code\my-project\path\to\app'
 // }
 ```
 
