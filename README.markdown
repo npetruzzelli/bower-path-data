@@ -30,6 +30,8 @@ npm install bower-path-data
 ```
 
 ```javascript
+const bowerPathData = require('bower-path-data');
+
 var pathInfo =  bowerPathData.sync('path/to/app/assets');
 // pathInfo => {
 //   componentsDir: '.tmp/assets/bower_stuff',
