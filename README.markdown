@@ -100,9 +100,26 @@ If the callback argument is not a function a `TypeError` is thrown.
     -   **componentsDir**: a `String` containing the absolute file system path to where Bower components are located
     -   **jsonFile**:  a `String` containing the absolute file system path to the project configuration file
 
+### bowerPathData.promise(startPath)
+
+Returns: a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves with an `Object` containing bower path information.
+
+-   **componentsDir**: a `String` containing the absolute file system path to where Bower components are located
+-   **jsonFile**:  a `String` containing the absolute file system path to the project configuration file
+
+Any errors will cause the promise to be rejected and the error will be passed to the reject handler as the rejection reason.
+
+#### startPath
+
+Type: `String`
+
+A path to the directory to look in for the Bower project configuration JSON file.
+
+If the startPath argument is not a string, the promise is rejected with a `TypeError`.
+
 ### bowerPathData.sync(startPath)
 
-Returns: an `Object` containing bower path information. 
+Returns: an `Object` containing bower path information.
 
 -   **componentsDir**: a `String` containing the absolute file system path to where Bower components are located
 -   **jsonFile**:  a `String` containing the absolute file system path to the project configuration file
