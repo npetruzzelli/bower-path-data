@@ -66,26 +66,68 @@ var runtimeConfig = bowerConfig.read(jsonPath);
 
 ## API
 
-### bowerPathData()
-
-Does nothing / placeholder for an async method.
-
-### bowerPathData.sync(startPath)
-
-Returns: an `Object` containing bower path information. 
+The main method and the `sync` method follow the same steps, but differ in how you receive the results or errors.
 
 > Checks if a `bower.json` exists, falling back to `component.json` (deprecated) and `.bower.json`
 >
 > _Source: [`find` and `findSync` methods](https://github.com/bower/bower/tree/master/packages/bower-json#findfolder-callback)_ in the **bower-json** module
 
-If a JSON file is found, the runtime configuration is retrieved using [**bower-config**](https://github.com/bower/bower/tree/master/packages/bower-config). The absolute path to the JSON file (including the filename) is returned as `jsonFile` in the returned object.
+If a JSON file is found, the runtime configuration is retrieved using [**bower-config**](https://github.com/bower/bower/tree/master/packages/bower-config). The absolute path to the JSON file (including the filename) is returned as `jsonFile` in the data object.
 
-The JSON file's absolute path and the value of `directory` from the runtime configuration are resolved using node's [**path.resolve**](https://nodejs.org/dist/latest-v6.x/docs/api/path.html#path_path_resolve_paths) and the result is returned as `componentsDir` in the returned object.
+The JSON file's absolute path and the value of `directory` from the runtime configuration are resolved using node's [**path.resolve**](https://nodejs.org/dist/latest-v6.x/docs/api/path.html#path_path_resolve_paths) and the result is returned as `componentsDir` in the data object.
+
+### bowerPathData(startPath, callback)
 
 #### startPath
 
 Type: `String`
 
-A path to the directory to look in for the bower project configuration JSON file.
+A path to the directory to look in for the Bower project configuration JSON file.
+
+If the startPath argument is not a string, a `TypeError` will be passed to the callback function.
+
+#### callback(err, pathData)
+
+Type: `Function`
+
+The callback function will receive 2 arguments.
+
+If the callback argument is not a function a `TypeError` is thrown.
+
+1.  **err**: `null` if there were no problems, otherwise it will contain an error object. 
+    The exact type of the error object will depend on the nature of the error and what module it occured in
+2.  **pathData**: an `Object` containing bower path information
+    -   **componentsDir**: a `String` containing the absolute file system path to where Bower components are located
+    -   **jsonFile**:  a `String` containing the absolute file system path to the project configuration file
+
+### bowerPathData.promise(startPath)
+
+Returns: a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves with an `Object` containing bower path information.
+
+-   **componentsDir**: a `String` containing the absolute file system path to where Bower components are located
+-   **jsonFile**:  a `String` containing the absolute file system path to the project configuration file
+
+Any errors will cause the promise to be rejected and the error will be passed to the reject handler as the rejection reason.
+
+#### startPath
+
+Type: `String`
+
+A path to the directory to look in for the Bower project configuration JSON file.
+
+If the startPath argument is not a string, the promise is rejected with a `TypeError`.
+
+### bowerPathData.sync(startPath)
+
+Returns: an `Object` containing bower path information.
+
+-   **componentsDir**: a `String` containing the absolute file system path to where Bower components are located
+-   **jsonFile**:  a `String` containing the absolute file system path to the project configuration file
+
+#### startPath
+
+Type: `String`
+
+A path to the directory to look in for the Bower project configuration JSON file.
 
 If a JSON file can't be found in `startPath` an error is thrown.
